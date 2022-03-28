@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->String('card_number')->nullable();
             $table->String('formation')->nullable();
+            $table->String('level')->nullable();
+
         });
     }
 
