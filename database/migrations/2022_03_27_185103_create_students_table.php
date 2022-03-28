@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('card_number')->nullable();
-            $table->string('formation')->nullable();
-            $table->string('level')->nullable();
+            $table->String('card_number')->nullable();
+            $table->String('formation')->nullable();
+            $table->String('level')->nullable();
+
         });
     }
 

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
+            $table->string('objective')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
             $table->string('phone')->nullable();
             $table->text('objective')->nullable();
