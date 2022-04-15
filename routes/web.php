@@ -30,4 +30,5 @@ Route::post('register-teacher', [\App\Http\Controllers\Auth\RegisterTeacherContr
 Route::get('register-trainer', [\App\Http\Controllers\Auth\RegisterTrainerController::class, 'create'])->name('register-trainer.create');
 Route::post('register-trainer', [\App\Http\Controllers\Auth\RegisterTrainerController::class, 'store'])->name('register-trainer.store');
 
+Route::resource('posts', \App\Http\Controllers\PostController::class);
 require __DIR__.'/auth.php';

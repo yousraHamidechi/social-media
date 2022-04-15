@@ -16,12 +16,10 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title');
             $table->string('content');
-            $table->text('image');
-            $table->string('date_modified');
-            $table->string('author');
-            $table->string('tags');
+            $table->text('image')->nullable();
+            $table->string('tags')->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->updateOnDelete();
 
 
         });

@@ -18,11 +18,6 @@ return new class extends Migration
             $table->string('objective')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();
-            $table->string('phone')->nullable();
-            $table->text('objective')->nullable();
-
-
-
         });
     }
 
