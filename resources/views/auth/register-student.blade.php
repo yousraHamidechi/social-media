@@ -9,7 +9,7 @@
         <h1>NAAME</h1> </div>
 
 
-    <form class="container" id="container" action="{{route('register-user.store')}}" method="post">
+    <form class="container" id="container" action="{{route('register-student.store')}}" method="post">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -17,6 +17,7 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+
             </div>
         @endif
         <div class="form-container sign-in-container">
