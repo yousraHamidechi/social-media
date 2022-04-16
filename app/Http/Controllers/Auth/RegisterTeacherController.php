@@ -44,6 +44,8 @@ class RegisterTeacherController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $data['password'] = bcrypt($data['password']);
+
         $teacher = Teacher::create($data);
         $user = $teacher->user()->create($data);
 

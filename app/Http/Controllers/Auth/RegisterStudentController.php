@@ -48,6 +48,7 @@ class RegisterStudentController extends Controller
 
         ]);
 
+        $data['password'] = bcrypt($data['password']);
         $student = Student::create($data);
         $user = $student->user()->create($data);
 

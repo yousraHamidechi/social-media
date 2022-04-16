@@ -47,6 +47,8 @@ class RegisterTrainerController extends Controller
 
         ]);
 
+        $data['password'] = bcrypt($data['password']);
+
         $trainer = Trainer::create($data);
         $user = $trainer->user()->create($data);
 

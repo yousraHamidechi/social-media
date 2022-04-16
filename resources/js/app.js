@@ -1,7 +1,12 @@
 require('./bootstrap');
+import {createApp} from "vue";
+import Conversation from "./Components/Conversation";
 
-import Alpine from 'alpinejs';
+const vue = createApp({});
 
-window.Alpine = Alpine;
 
-Alpine.start();
+
+
+vue.component('conversation',Conversation)
+
+vue.mount('#app');

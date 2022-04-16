@@ -7,17 +7,28 @@
     <div class="container" id="container">
         <div class="header">
             <img src="photo_2022-03-25_01-00-40.jpg" alt="logo" />
-            <h1>NAAME</h1> 
+            <h1>NAAME</h1>
         </div>
 
         <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Connexion</h1> 
-                <input type="text" placeholder="Nom d'utilisateur" /> <br>
-                <input type="password" placeholder="mot de pass" /> <br>
+            <form action="{{ route('login.store') }}" method="post">
+                @csrf
+                <h1>Connexion</h1>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+
+                    </div>
+                @endif
+                <input type="text" placeholder="Nom d'utilisateur" name="email" value="{{ old('email') }}"/> <br>
+                <input type="password" placeholder="mot de pass" name="password" /> <br>
                 <span>
                     <input type="checkbox" id="souvenir" >
-                    <p for="souvenir"> gardez-moi connecté </p>
+                    <p > gardez-moi connecté </p>
                 </span>
                 <button type="submit">Se connecter</button>
             </form>
@@ -27,15 +38,15 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Bienvenue dans notre communauté !</h1>
                     <p>Inscrivez-vous et Rejoignez vos collègues, camarades de classe et amis sur NAAAME.</p>
-                    <button  type ="submit"class="ghost" id="signUp">étudiant</button><br>
-                    <button type="submit" class="ghost" id="signUp">Enseignant</button><br>
-                    <button  type="submit" class="ghost" id="signUp">Formateur</button>
+                    <a href="{{ route('register-student.create') }}" class="ghost" id="signUp">étudiant</a><br>
+                    <a href="{{ route('register-teacher.create') }}" class="ghost" id="signUp">Enseignant</a><br>
+                    <a href="{{ route('register-trainer.create') }}" class="ghost" id="signUp">Formateur</a>
                 </div>
             </div>
         </div>
     </div>
-    
-    
+
+
     <script src="login.js"></script>
 </body>
 </html>

@@ -30,5 +30,10 @@ Route::post('register-teacher', [\App\Http\Controllers\Auth\RegisterTeacherContr
 Route::get('register-trainer', [\App\Http\Controllers\Auth\RegisterTrainerController::class, 'create'])->name('register-trainer.create');
 Route::post('register-trainer', [\App\Http\Controllers\Auth\RegisterTrainerController::class, 'store'])->name('register-trainer.store');
 
+Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'create'])->name('login.create');
+Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'store'])->name('login.store');
+
 Route::resource('posts', \App\Http\Controllers\PostController::class);
-require __DIR__.'/auth.php';
+
+Route::view('chat', 'test/chat')->middleware('auth');
+//require __DIR__.'/auth.php';
