@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete()->updateOnDelete();
-            $table->foreignId('firend_id')->references('id')->on('users')->cascadeOnDelete()->updateOnDelete();
+            $table->foreignId('friend_id')->references('id')->on('users')->cascadeOnDelete()->updateOnDelete();
 
         });
     }

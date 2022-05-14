@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,3 +43,5 @@ Route::view('chat', 'test/chat')->middleware('auth');
 
 
 Route::resource('home', HomeController::class)->middleware('auth')->only(['index']);
+Route::get('profile/{id}', [ProfileController::class, 'index'])->middleware('auth')->name('profile.index');
+Route::post('add-friend/{id}', [FriendController::class, 'store'])->middleware('auth')->name('friend.store');

@@ -2,35 +2,45 @@
 
 @section('content')
     <div class="profile-container">
-        <img src="images/cover.png" class="cover-img">
+        <img src="{{ asset('assets/images/cover.png') }}" class="cover-img">
         <div class="profile-details">
             <div class="profile-detail-left">
                 <div class="pd-row">
-                    <img src="images/profile.png" class="pd-img">
+                    <img src="{{ $user->image_url }}" class="pd-img">
                     <div>
-                        <h3> utilisateur2</h3>
+                        <h3> {{ $user->name }}</h3>
 
                     </div>
                 </div>
             </div>
-            <div class="profile-detail-right">
-                <button type="button"><img src="images/add-friends.png" > ajouter</button>
-                <button type="button"> <img src="images/message.png" > message</button>
-                <br>
-                <a href=""><img src="images/more.png" ></a>
-            </div>
+            <form action="{{ route('friend.store', $user->id) }}" method="post" id="add-friend">@csrf</form>
+
+            @if(auth()->id() !== $user->id)
+                <div class="profile-detail-right">
+                    @if(!$user->friends->contains(auth()->user()))
+                    <button type="submit" form="add-friend"><img src="{{ asset('assets/images/add-friends.png') }}">
+                        ajouter
+                    </button>
+                    @endif
+                    <button type="button"><img src="{{ asset('assets/images/message.png') }}"> message</button>
+                    <br>
+                    <a href=""><img src="{{ asset('assets/images/more.png') }}"></a>
+                </div>
+            @endif
         </div>
 
         <div class="profile-info">
             <div class="info-col">
                 <div class="profile-intro">
                     <h3>intro</h3>
-                    <p class="intro-text">bio ...</p>
+                    <p class="intro-text">{{ $user->bio }}</p>
                     <hr>
                     <ul>
-                        <li> <img src="images/profile-job.png" alt=""> text text </li>
-                        <li><img src="images/profile-study.png" alt=""> text text text</li>
-                        <li><img src="images/profile-location.png" alt=""> text text</li>
+                        <li><img src="{{ asset('assets/images/profile-job.png') }}"
+                                 alt="">{{ $user->userable->formation }}</li>
+                        <li><img src="{{ asset('assets/images/profile-study.png') }}" alt="">{{ $user->birth_date }}
+                        </li>
+                        {{--                        <li><img src="{{ asset('assets/images/profile-location.png') }}" alt=""> text text</li>--}}
                     </ul>
                 </div>
                 <div class="profile-intro">
@@ -38,78 +48,65 @@
                         <h3>Amis</h3>
                         <a href="">tous les amis</a>
                     </div>
-                    <p>40</p>
+                    <p>{{ $user->friends->count() }}</p>
                     <div class="friends-box">
-                        <div><img src="images/member-1.png" ><p>user1</p></div>
-                        <div><img src="images/member-2.png" ><p>user2</p></div>
-                        <div><img src="images/member-3.png" ><p>user3</p></div>
-                        <div><img src="images/member-4.png" ><p>user4</p></div>
+                        @foreach($user->friends as $friend)
+                            <div><img src="{{ $friend->image_url }}">
+                                <p>{{ $friend->name }}</p></div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
             <div class="post-col">
-                <div class="write-Post-container">
-                    <div class="user-profile">
-                        <img src="images/profile-pic.png">
-                        <div><p> utilisateur1</p>
-                            <small>public <i class="fas fa-caret-down"></i></small>
-                        </div>
-                    </div>
-                    <div class="post-input-container">
-                        <textarea rows="3" placeholder="exprimez vous!"></textarea>
-                        <div class="add-post-links"><a href=""><img src="images/live-video.png" >video</a>
-                            <a href=""><img src="images/photo.png" >photo</a>
-                            <a href=""><img src="images/feeling.png" >tag</a>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="post-container">
-                    <div class="post-row">
+                @if($user->id === auth()->id())
+                    <div class="write-Post-container">
                         <div class="user-profile">
-                            <img src="images/profile.png">
-                            <div><p> utilisateur2</p>
-                                <span></span>
+                            <img src="{{ auth()->user()->image_url }}">
+                            <div><p> {{ auth()->user()->name }}</p>
+                                <small>public <i class="fas fa-caret-down"></i></small>
                             </div>
                         </div>
-                        <a href=""><i class="fas fa-ellipsis-v"></i> </a>
-                    </div>
-
-                    <p class="post-text"> text text text</p>
-                    <img src="images/feed-image-1.png" class="post-img">
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div><img src="images/like-blue.png" >120</div>
-                            <div><img src="images/comments.png" >20</div>
-                            <div><img src="images/share.png" >20</div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="post-container">
-                    <div class="post-row">
-                        <div class="user-profile">
-                            <img src="images/profile-pic.png">
-                            <div><p> utilisateur1</p>
-                                <span></span>
+                        <form class="post-input-container" action="{{ route('posts.store')}}" method="post">
+                            @csrf
+                            <textarea rows="3" placeholder="exprimez vous!"
+                                      name="content">{{ old('content') }}</textarea>
+                            <div class="add-post-links"><a href=""><img
+                                        src="{{ asset('assets/images/live-video.png') }}">video</a>
+                                <a href=""><img src="{{ asset('assets/images/photo.png') }}">photo</a>
+                                <a href=""><img src="{{ asset('assets/images/feeling.png') }}">tag</a>
+                                <button type="submit" class="btn">Publier</button>
                             </div>
-                        </div>
-                        <a href=""><i class="fas fa-ellipsis-v"></i> </a>
+                        </form>
                     </div>
-
-                    <p class="post-text"> text text abc </p>
-                    <img src="images/feed-image-2.png" class="post-img">
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div><img src="images/like.png" >10</div>
-                            <div><img src="images/comments.png" >20</div>
-                            <div><img src="images/share.png" >20</div>
+                @endif
+                @foreach($user->posts as $post)
+                    <div class="post-container">
+                        <div class="post-row">
+                            <div class="user-profile">
+                                <img src="{{ $user->image_url }}">
+                                <div><p>{{ $user->name }}</p>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <a href=""><i class="fas fa-ellipsis-v"></i> </a>
                         </div>
 
+                        <p class="post-text">{{ $post->content }}</p>
+                        <img src="{{ asset('assets/images/feed-image-1.png') }}" class="post-img">
+
+                        <div class="post-row">
+                            <div class="activity-icons">
+                                <div><img src="{{ asset('assets/images/like-blue.png') }}">120</div>
+                                <div><img src="{{ asset('assets/images/comments.png') }}">20</div>
+                                <div><img src="{{ asset('assets/images/share.png') }}">20</div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                @endforeach
+
+
             </div>
         </div>
     </div>

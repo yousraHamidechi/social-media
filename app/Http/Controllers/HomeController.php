@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Post;
+
 class HomeController extends Controller
 {
 
     public function index()
     {
-        return view('home');
+        $posts = Post::latest()->get();
+        return view('home', compact('posts'));
     }
 
 }

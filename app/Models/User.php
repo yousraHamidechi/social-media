@@ -69,16 +69,53 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)->latest();
     }
 
     public function friends()
     {
-        return $this - belongsToMany(User::class, 'friends', 'friend_id');
+        return $this->belongsToMany(User::class, 'friends', 'friend_id');
     }
 
     public function groups()
     {
         return $this->belongsToMany(Group::class);
+    }
+
+
+    // friendship that this user started
+    protected function friendsOfThisUser()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id');
+    }
+
+    // friendship that this user was asked for
+    protected function thisUserFriendOf()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+    }
+
+    // accessor allowing you call $user->friends
+    public function getFriendsAttribute()
+    {
+        if ( ! array_key_exists('friends', $this->relations)) $this->loadFriends();
+        return $this->getRelation('friends');
+    }
+
+    protected function loadFriends()
+    {
+        if ( ! array_key_exists('friends', $this->relations))
+        {
+            $friends = $this->mergeFriends();
+            $this->setRelation('friends', $friends);
+        }
+    }
+
+    protected function mergeFriends()
+    {
+        if($temp = $this->friendsOfThisUser)
+            return $temp->merge($this->thisUserFriendOf);
+        else
+            return $this->thisUserFriendOf;
     }
 }

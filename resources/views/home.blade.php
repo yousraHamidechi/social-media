@@ -32,38 +32,42 @@
                 </div>
                 <form class="post-input-container" action="{{ route('posts.store')}}" method="post">
                     @csrf
-                    <textarea rows="3" placeholder="exprimez vous!"></textarea>
+                    <textarea rows="3" placeholder="exprimez vous!" name="content">{{ old('content') }}</textarea>
                     <div class="add-post-links"><a href=""><img src="{{ asset('assets/images/live-video.png') }}">video</a>
                         <a href=""><img src="{{ asset('assets/images/photo.png') }}">photo</a>
                         <a href=""><img src="{{ asset('assets/images/feeling.png') }}">tag</a>
-
+                        <button type="submit" class="btn">Publier</button>
                     </div>
                 </form>
             </div>
+            @foreach($posts as $post)
+                <div class="post-container">
 
-            <div class="post-container">
-                <div class="post-row">
-                    <div class="user-profile">
-                        <img src="{{ asset('assets/images/profile-pic.png') }}">
-                        <div><p> utilisateur1</p>
-                            <span></span>
+                    <div class="post-row">
+                        <div class="user-profile">
+                            <img src="{{ asset('assets/images/profile-pic.png') }}">
+                            <div><a href="{{ route('profile.index', $post->user_id) }}"><p> {{ $post->user->name }}</p>
+                                </a>
+                                <span></span>
+                            </div>
                         </div>
-                    </div>
-                    <a href=""><i class="fas fa-ellipsis-v"></i> </a>
-                </div>
-
-                <p class="post-text"> text text text</p>
-                <img src="{{ asset('assets/images/feed-image-1.png') }}" class="post-img">
-
-                <div class="post-row">
-                    <div class="activity-icons">
-                        <div><img src="{{ asset('assets/images/like-blue.png') }}">120</div>
-                        <div><img src="{{ asset('assets/images/comments.png') }}">20</div>
-                        <div><img src="{{ asset('assets/images/share.png') }}">20</div>
+                        <a href=""><i class="fas fa-ellipsis-v"></i> </a>
                     </div>
 
+                    <p class="post-text"> {{ $post->content }}</p>
+                    <img src="{{ asset('assets/images/feed-image-1.png') }}" class="post-img">
+
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div><img src="{{ asset('assets/images/like-blue.png') }}">120</div>
+                            <div><img src="{{ asset('assets/images/comments.png') }}">20</div>
+                            <div><img src="{{ asset('assets/images/share.png') }}">20</div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            @endforeach
+
 
             <button type="button" class="load-more-btn"> afficher plus</button>
         </div>
@@ -98,16 +102,15 @@
                 <h4>convertation</h4>
                 <a href="#">ouvrir le chat</a>
             </div>
-            <div class="online-list">
-                <div class="online">
-                    <img src="{{ asset('assets/images/member-1.png') }}"></div>
-                <p> ami 1</p>
-            </div>
-            <div class="online-list">
-                <div class="online">
-                    <img src="{{ asset('assets/images/member-2.png') }}"></div>
-                <p> ami 2</p>
-            </div>
+            @foreach(auth()->user()->friends->shuffle()->take(5) as $friend)
+                <div class="online-list">
+                    <div class="online">
+                        <img src="{{ $friend->image_url }}"></div>
+                    <a href="{{ route('profile.index', $friend->id) }}"><p>{{ $friend->name }}</p></a>
+                </div>
+            @endforeach
+
+
         </div>
     </div>
 @endsection
