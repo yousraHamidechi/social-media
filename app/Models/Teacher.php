@@ -11,11 +11,11 @@ class Teacher extends Model
     use HasFactory;
 
     protected $fillable = [
-'nothing'
+        'nothing'
     ];
 
     public function user(): MorphOne
     {
-        return $this->morphOne(User::class,'userable');
+        return $this->morphOne(User::class, 'userable');
     }
 }

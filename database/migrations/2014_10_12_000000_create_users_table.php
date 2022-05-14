@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('userable_type');
             $table->integer('userable_id');
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

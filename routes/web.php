@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,6 @@ Route::resource('posts', \App\Http\Controllers\PostController::class);
 
 Route::view('chat', 'test/chat')->middleware('auth');
 //require __DIR__.'/auth.php';
+
+
+Route::resource('home', HomeController::class)->middleware('auth')->only(['index']);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ asset('assets/login.css') }}">
 </head>
 <body>
     <div class="container" id="container">

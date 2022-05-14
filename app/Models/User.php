@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'gender',
+        'image'
     ];
 
     /**
@@ -36,6 +37,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'image_url'
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -44,6 +49,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ?
+            'storage/' . $this->image :
+            asset('assets/images/profile-pic.png');
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name." ".$this->last_name;
+    }
 
     public function userable()
     {
@@ -57,7 +74,7 @@ class User extends Authenticatable
 
     public function friends()
     {
-        return $this-belongsToMany(User::class, 'friends', 'friend_id');
+        return $this - belongsToMany(User::class, 'friends', 'friend_id');
     }
 
     public function groups()
