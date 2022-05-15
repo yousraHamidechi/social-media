@@ -30,11 +30,20 @@
                         <small>public <i class="fas fa-caret-down"></i></small>
                     </div>
                 </div>
-                <form class="post-input-container" action="{{ route('posts.store')}}" method="post">
+                <form class="post-input-container" action="{{ route('posts.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <textarea rows="3" placeholder="exprimez vous!" name="content">{{ old('content') }}</textarea>
-                    <div class="add-post-links"><a href=""><img src="{{ asset('assets/images/live-video.png') }}">video</a>
-                        <a href=""><img src="{{ asset('assets/images/photo.png') }}">photo</a>
+                    <div class="form-row gallery">
+
+                    </div>
+
+                    <input type="file" name="image" style="display: none"
+                           class="custom-file-input"
+                           id="imgInput" size="2024">
+                    <div class="add-post-links">
+                        <a href=""><img src="{{ asset('assets/images/live-video.png') }}">video</a>
+                        <a href="javascript:void(0)" onclick="clickInput()"><img
+                                src="{{ asset('assets/images/photo.png') }}">photo</a>
                         <a href=""><img src="{{ asset('assets/images/feeling.png') }}">tag</a>
                         <button type="submit" class="btn">Publier</button>
                     </div>
@@ -55,7 +64,7 @@
                     </div>
 
                     <p class="post-text"> {{ $post->content }}</p>
-                    <img src="{{ asset('assets/images/feed-image-1.png') }}" class="post-img">
+                    <img src="{{ $post->image_url }}" class="post-img">
 
                     <div class="post-row">
                         <div class="activity-icons">
@@ -114,3 +123,46 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function clickInput() {
+            $('#imgInput').click();
+
+        }
+
+        let input = document.querySelector('#imgInput')
+        var imagesPreview = function (input, placeToInsertImagePreview) {
+            $(".preview_image_div").remove();
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    let reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        let index = $('.preview_image').length
+                        $(".gallery").append(`<div class="col-lg-3 mb-3 preview_image_div">
+                                <div class="d-flex justify-content-center align-items-center rounded w-100 upload-` + index + `"
+                                     style=" background: #F4F6F9">
+
+                    <img src="` + event.target.result + `" alt="image" width="100%" class="preview_image">
+
+                                </div>
+                            </div>`);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#imgInput').on('change', function () {
+            imagesPreview(this, 'div.gallery');
+        });
+
+
+
+    </script>
+@endpush

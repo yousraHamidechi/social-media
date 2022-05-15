@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -42,6 +40,6 @@ Route::view('chat', 'test/chat')->middleware('auth');
 //require __DIR__.'/auth.php';
 
 
-Route::resource('home', HomeController::class)->middleware('auth')->only(['index']);
+Route::get('home', [HomeController::class, 'index'])->middleware('auth')->name('home.index');
 Route::get('profile/{id}', [ProfileController::class, 'index'])->middleware('auth')->name('profile.index');
 Route::post('add-friend/{id}', [FriendController::class, 'store'])->middleware('auth')->name('friend.store');
