@@ -63,17 +63,17 @@
 
                         </ul>
                     </div>
-                    <form class="chat-message clearfix" id="sendMessageForm">
+                    <div class="chat-message clearfix" id="sendMessageForm">
                         <div class="input-group mb-0">
                             <div class="input-group-prepend">
-                                <button  type="button" class="btn btn-primary send"  @click="addMessage()">
+                                <button  type="button" class="btn btn-primary send"  @click="addMessage()" @keyup.enter="addMessage()">
                                     <i data-feather="send" class="d-lg-none"></i>
                                     <span class="d-none text-nowrap d-lg-block">Send</span>
                                 </button>
                             </div>
                             <input type="text" v-model="message" @keyup.enter="addMessage()" class="form-control message" placeholder="Type your message" />
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,6 +149,7 @@ export default {
             return await getDocs(q);
         },
          addMessage() {
+            console.log('test')
             if (this.message) {
                 addDoc(collection(db, `conversations/${this.conversationProps.serial}/messages`), {
                     sender_id: this.senderId,

@@ -42948,6 +42948,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addMessage: function addMessage() {
       var _this = this;
 
+      console.log('test');
+
       if (this.message) {
         (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.addDoc)((0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(this.conversationProps.serial, "/messages")), {
           sender_id: this.senderId,
@@ -43075,18 +43077,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     )]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-primary send",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $options.addMessage();
-    })
-  }, _hoisted_16)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }),
+    onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
+      return $options.addMessage();
+    }, ["enter"]))
+  }, _hoisted_16, 32
+  /* HYDRATE_EVENTS */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.message = $event;
     }),
-    onKeyup: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
+    onKeyup: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
       return $options.addMessage();
     }, ["enter"])),
     "class": "form-control message",
@@ -43125,12 +43132,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyC3XsxRI6_Y_VBwH7KiydiTLS0LK_oy7zw",
-  authDomain: "social-media-2-d2433.firebaseapp.com",
-  projectId: "social-media-2-d2433",
-  storageBucket: "social-media-2-d2433.appspot.com",
-  messagingSenderId: "845202964206",
-  appId: "1:845202964206:web:dabd3173c1784dfb53bdff"
+  apiKey: "AIzaSyD2nYY1fg87Xya0d_eoje_yxlxV_MUyIqM",
+  authDomain: "hospital-656b4.firebaseapp.com",
+  projectId: "hospital-656b4",
+  storageBucket: "hospital-656b4.appspot.com",
+  messagingSenderId: "199337787419",
+  appId: "1:199337787419:web:5255d5fb984c07d086b8be"
 };
 var app = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebaseConfig);
 var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getFirestore)(app);
