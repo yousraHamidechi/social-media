@@ -1,7 +1,7 @@
 <nav>
     <div class="nav-left">
         <a href="{{route('home.index')}}">
-            <img src="{{ asset('assets/images/logo.png') }}" class="logo">
+            <img src="{{ asset('assets/images/logo_L.png') }}" class="logo">
         </a>
         <ul>
             <li><a href=""><img src="{{ asset('assets/images/notification.png') }}"></a></li>
@@ -47,7 +47,7 @@
             </div>
             <div class="setting-links">
                 <img src="{{ asset('assets/images/logout.png') }}" class="settings-icon">
-                <a href="#"> déconnexion <img src="{{ asset('assets/images/arrow.png') }}" width="10px"></a>
+                <a href="{{ route('logout') }}"> déconnexion <img src="{{ asset('assets/images/arrow.png') }}" width="10px"></a>
             </div>
         </div>
     </div>

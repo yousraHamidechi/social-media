@@ -8,7 +8,7 @@
                 <a href="#"> <img src="{{ asset('assets/images/friends.png') }}">amis</a>
                 <a href=""><img src="{{ asset('assets/images/plus.png') }}">invitations</a>
                 <a href="#"> <img src="{{ asset('assets/images/group.png') }}">groupes</a>
-                <a href="#"> <img src="{{ asset('assets/images/book.png') }}">modules</a>
+                <a href="{{ route('modules.index') }}"> <img src="{{ asset('assets/images/book.png') }}">modules</a>
                 <a href="#"> <img src="{{ asset('assets/images/format.png') }}">formations</a>
 
             </div>
@@ -128,7 +128,6 @@
     <script>
         function clickInput() {
             $('#imgInput').click();
-
         }
 
         let input = document.querySelector('#imgInput')
