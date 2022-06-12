@@ -1,83 +1,120 @@
 <template>
-    <div class="row clearfix">
-        <div class="col-lg-12">
-            <div class="card chat-app">
-                <div id="plist" class="people-list">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-4 col-sm-3 chat">
+            <div class="card mb-sm-3 mb-md-0 contacts_card">
+                <div class="card-header">
                     <div class="input-group">
+                        <input
+                            type="text"
+                            placeholder="Find a conversation..."
+                            name=""
+                            class="form-control search"
+                        />
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                  <span class="input-group-text search_btn"
+                  ><i class="fas fa-search"></i
+                  ></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Search...">
                     </div>
-                    <ul class="list-unstyled chat-list mt-2 mb-0">
-
-                        <li class="clearfix">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                            <div class="about">
-                                <div class="name">Vincent Porter</div>
-                                <div class="status"><i class="fa fa-circle offline"></i> left 7 mins ago</div>
+                </div>
+                <div class="card-body contacts_body">
+                    <ul class="contacts">
+                        <li class="active" v-for="(conversation, key, index) in conversations" :key="conversation.id">
+                            <div class="d-flex bd-highlight" @click="chooseConversation(conversation)">
+                                <div class="img_cont">
+                                    <img src="/assets/images/photo1.png" class="rounded-circle user_img" />
+                                    <span class="online_icon"></span>
+                                </div>
+                                <div class="user_info">
+                                    <span>{{ conversation.name }}</span>
+                                    <p>Online</p>
+                                </div>
                             </div>
                         </li>
-
                     </ul>
                 </div>
-                <div class="chat">
-                    <div class="chat-header clearfix">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                                </a>
-                                <div class="chat-about">
-                                    <h6 class="m-b-0">Aiden Chavez</h6>
-                                    <small>Last seen: 2 hours ago</small>
-                                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+        <div class="col-md-8 col-xl-6 chat">
+            <div class="card">
+                <div class="card-header msg_head">
+                    <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                            <img src="/assets/images/photo1.png" class="rounded-circle user_img" />
+                            <span class="online_icon"></span>
+                        </div>
+                        <div class="user_info">
+                            <span>khalid Charif</span>
+                            <p>1767 Messages</p>
+                        </div>
+                        <!--<div class="video_cam">
+                                            <span><i class="fas fa-video"></i></span>
+                                            <span><i class="fas fa-phone"></i></span>
+                                        </div>-->
+                    </div>
+                    <span id="action_menu_btn"
+                    ><i class="fas fa-ellipsis-v"></i
+                    ></span>
+                    <div class="action_menu">
+                        <ul>
+                            <li><i class="fas fa-user-circle"></i> View profile</li>
+                            <li><i class="fas fa-users"></i> Add to close friends</li>
+                            <li><i class="fas fa-plus"></i> Add to group</li>
+                            <li><i class="fas fa-ban"></i> Block</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body msg_card_body">
+
+                    <div  v-for="message in messagesFormat" :key="message">
+                        <div :class="{'d-flex' : true, 'justify-content-end': senderId == message.sender_id, 'mb-4' : true }" v-if="senderId == message.sender_id">
+                            <div class="msg_cotainer_send">
+                                {{ message.content }}
+                                <!--                            <span class="msg_time_send">9:05 AM, Today</span>-->
                             </div>
-                            <div class="col-lg-6 hidden-sm text-right">
-                                <a href="javascript:void(0);" class="btn btn-outline-secondary"><i
-                                    class="fa fa-camera"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-outline-primary"><i
-                                    class="fa fa-image"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-outline-info"><i
-                                    class="fa fa-cogs"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-outline-warning"><i
-                                    class="fa fa-question"></i></a>
+                            <div class="img_cont_msg">
+                                <img src="/assets/images/photo1.png" class="rounded-circle user_img_msg" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start mb-4" v-else>
+                            <div class="img_cont_msg">
+                                <img src="/assets/images/profile-pic.png" class="rounded-circle user_img_msg" />
+                            </div>
+                            <div class="msg_cotainer">
+                                {{ message.content }}
+<!--                                <span class="msg_time">9:07 AM, Today</span>-->
                             </div>
                         </div>
                     </div>
-                    <div class="chat-history">
-                        <ul class="m-b-0">
 
-                            <li class="clearfix" v-for="message in messagesFormat" :key="message">
-                                <div class="message-data">
-<!--                                    <span :class="{'message-data-time' : true, 'float-right': conversationProps.first_user_id === message.sender_id }"-->
-<!--                                    >{{ message.created_at }}</span>-->
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                         v-if="senderId != message.sender_id"
-                                         alt="avatar">
-                                </div>
-                                <div :class="{'message' : true,'other-message' : true, 'float-right': senderId == message.sender_id }"
-                                > {{ message.content }}
-                                </div>
-                            </li>
 
-                        </ul>
-                    </div>
-                    <div class="chat-message clearfix" id="sendMessageForm">
-                        <div class="input-group mb-0">
-                            <div class="input-group-prepend">
-                                <button  type="button" class="btn btn-primary send"  @click="addMessage()" @keyup.enter="addMessage()">
-                                    <i data-feather="send" class="d-lg-none"></i>
-                                    <span class="d-none text-nowrap d-lg-block">Send</span>
-                                </button>
-                            </div>
-                            <input type="text" v-model="message" @keyup.enter="addMessage()" class="form-control message" placeholder="Type your message" />
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                  <span class="input-group-text attach_btn"
+                  ><i class="fas fa-paperclip"></i
+                  ></span>
+                        </div>
+                        <textarea
+                            v-model="message" @keyup.enter="addMessage()"
+                            name=""
+                            class="form-control type_msg"
+                            placeholder="Type your message..."
+                        ></textarea>
+                        <div class="input-group-append">
+                  <span class="input-group-text send_btn" @click="addMessage()" @keyup.enter="addMessage()"
+                  ><i class="fas fa-location-arrow"></i
+                  ></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 </template>
 
@@ -90,9 +127,8 @@ export default {
     name: "Conversation",
 
     props:{
-        conversationProps:{
-            type:Object,
-            required:true
+        conversations:{
+
         },
         senderId:{
             required:true
@@ -101,7 +137,7 @@ export default {
     data(){
         return {
             users:[],
-            conversion:null,
+            conversation:null,
             messages:[],
             message:null,
             loading:false,
@@ -115,6 +151,7 @@ export default {
         // this.getMessages(this.conversationProps).then(res => {
         //     this.messages = res.docs
         // })
+        this.conversation = this.conversations[0]
         this.realTimeMessages();
 
 
@@ -144,16 +181,15 @@ export default {
             return await getDocs(q);
         },
         async getMessages(conversation) {
-            const docRef = collection(db, `conversations/${conversation.serial}/messages`);
+            const docRef = collection(db, `conversations/${conversation.pivot.serial}/messages`);
             const q = query(docRef);
             return await getDocs(q);
         },
          addMessage() {
-            console.log('test')
             if (this.message) {
-                addDoc(collection(db, `conversations/${this.conversationProps.serial}/messages`), {
+                addDoc(collection(db, `conversations/${this.conversation.pivot.serial}/messages`), {
                     sender_id: this.senderId,
-                    receiver_id: this.conversationProps.second_user_id === this.senderId ? this.conversationProps.first_user_id : this.conversationProps.second_user_id,
+                    receiver_id: this.conversation.pivot.friend_id === this.senderId ? this.conversation.pivot.user_id : this.conversation.pivot.friend_id,
                     content: this.message,
                     created_at : new Date(),
                 },{ merge: true }).then(() => {
@@ -167,9 +203,15 @@ export default {
              console.log(this.messages)
 
          },
+        chooseConversation(conversation)
+        {
+            console.log('test')
+            this.conversation = conversation
+            this.realTimeMessages()
+        },
         realTimeMessages(){
             this.loading = true;
-            const q = query(collection(db, `conversations/${this.conversationProps.serial}/messages`),orderBy("created_at",'desc'));
+            const q = query(collection(db, `conversations/${this.conversation.pivot.serial}/messages`),orderBy("created_at",'desc'));
             let that = this;
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
                 that.messages = querySnapshot.docs.reverse()

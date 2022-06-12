@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Invitation;
+use Illuminate\Support\Str;
 
 class InvitationController extends Controller
 {
@@ -17,7 +18,7 @@ class InvitationController extends Controller
     public function accept($id)
     {
         $invitation = Invitation::findOrFail($id);
-        $invitation->user->friends()->syncWithoutDetaching([$invitation->requestingUser->id]);
+        $invitation->user->friends()->syncWithoutDetaching([$invitation->requestingUser->id => ['serial' => Str::uuid()]]);
         $invitation->delete();
         return back();
     }

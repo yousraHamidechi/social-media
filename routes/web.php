@@ -40,7 +40,7 @@ Route::any('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout
 
 Route::resource('posts', \App\Http\Controllers\PostController::class);
 
-Route::view('chat', 'test/chat')->middleware('auth');
+Route::view('chat', 'conversation')->middleware('auth')->name('chat');
 //require __DIR__.'/auth.php';
 
 
@@ -57,3 +57,5 @@ Route::get('modules', [ModuleController::class, 'index'])->middleware('auth')->n
 Route::get('invitations', [InvitationController::class, 'index'])->middleware('auth')->name('invitations.index');
 Route::get('invitations/{id}/accept', [InvitationController::class, 'accept'])->middleware('auth')->name('invitations.accept');
 Route::get('invitations/{id}/reject', [InvitationController::class, 'reject'])->middleware('auth')->name('invitations.reject');
+
+Route::view('convo', 'conversation')->middleware('auth');

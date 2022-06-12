@@ -42832,10 +42832,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Conversation",
   props: {
-    conversationProps: {
-      type: Object,
-      required: true
-    },
+    conversations: {},
     senderId: {
       required: true
     }
@@ -42843,7 +42840,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       users: [],
-      conversion: null,
+      conversation: null,
       messages: [],
       message: null,
       loading: false
@@ -42856,6 +42853,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // this.getMessages(this.conversationProps).then(res => {
     //     this.messages = res.docs
     // })
+    this.conversation = this.conversations[0];
     this.realTimeMessages();
   },
   computed: {
@@ -42929,7 +42927,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                docRef = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(conversation.serial, "/messages"));
+                docRef = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(conversation.pivot.serial, "/messages"));
                 q = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.query)(docRef);
                 _context3.next = 4;
                 return (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.getDocs)(q);
@@ -42948,12 +42946,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addMessage: function addMessage() {
       var _this = this;
 
-      console.log('test');
-
       if (this.message) {
-        (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.addDoc)((0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(this.conversationProps.serial, "/messages")), {
+        (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.addDoc)((0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(this.conversation.pivot.serial, "/messages")), {
           sender_id: this.senderId,
-          receiver_id: this.conversationProps.second_user_id === this.senderId ? this.conversationProps.first_user_id : this.conversationProps.second_user_id,
+          receiver_id: this.conversation.pivot.friend_id === this.senderId ? this.conversation.pivot.user_id : this.conversation.pivot.friend_id,
           content: this.message,
           created_at: new Date()
         }, {
@@ -42966,11 +42962,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       console.log(this.messages);
     },
+    chooseConversation: function chooseConversation(conversation) {
+      console.log('test');
+      this.conversation = conversation;
+      this.realTimeMessages();
+    },
     realTimeMessages: function realTimeMessages() {
       var _this2 = this;
 
       this.loading = true;
-      var q = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.query)((0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(this.conversationProps.serial, "/messages")), (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.orderBy)("created_at", 'desc'));
+      var q = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.query)((0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.collection)(_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.db, "conversations/".concat(this.conversation.pivot.serial, "/messages")), (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.orderBy)("created_at", 'desc'));
       var that = this;
       var unsubscribe = (0,_Config_firebaseConfig__WEBPACK_IMPORTED_MODULE_1__.onSnapshot)(q, function (querySnapshot) {
         that.messages = querySnapshot.docs.reverse();
@@ -43001,106 +43002,193 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "row clearfix"
+  "class": "row justify-content-center h-100"
 };
 var _hoisted_2 = {
-  "class": "col-lg-12"
+  "class": "col-md-4 col-sm-3 chat"
 };
 var _hoisted_3 = {
-  "class": "card chat-app"
+  "class": "card mb-sm-3 mb-md-0 contacts_card"
 };
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div id=\"plist\" class=\"people-list\" data-v-39d73ece><div class=\"input-group\" data-v-39d73ece><div class=\"input-group-prepend\" data-v-39d73ece><span class=\"input-group-text\" data-v-39d73ece><i class=\"fa fa-search\" data-v-39d73ece></i></span></div><input type=\"text\" class=\"form-control\" placeholder=\"Search...\" data-v-39d73ece></div><ul class=\"list-unstyled chat-list mt-2 mb-0\" data-v-39d73ece><li class=\"clearfix\" data-v-39d73ece><img src=\"https://bootdey.com/img/Content/avatar/avatar1.png\" alt=\"avatar\" data-v-39d73ece><div class=\"about\" data-v-39d73ece><div class=\"name\" data-v-39d73ece>Vincent Porter</div><div class=\"status\" data-v-39d73ece><i class=\"fa fa-circle offline\" data-v-39d73ece></i> left 7 mins ago</div></div></li></ul></div>", 1);
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header\" data-v-39d73ece><div class=\"input-group\" data-v-39d73ece><input type=\"text\" placeholder=\"Find a conversation...\" name=\"\" class=\"form-control search\" data-v-39d73ece><div class=\"input-group-prepend\" data-v-39d73ece><span class=\"input-group-text search_btn\" data-v-39d73ece><i class=\"fas fa-search\" data-v-39d73ece></i></span></div></div></div>", 1);
 
 var _hoisted_5 = {
-  "class": "chat"
+  "class": "card-body contacts_body"
 };
+var _hoisted_6 = {
+  "class": "contacts"
+};
+var _hoisted_7 = ["onClick"];
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"chat-header clearfix\" data-v-39d73ece><div class=\"row\" data-v-39d73ece><div class=\"col-lg-6\" data-v-39d73ece><a href=\"javascript:void(0);\" data-toggle=\"modal\" data-target=\"#view_info\" data-v-39d73ece><img src=\"https://bootdey.com/img/Content/avatar/avatar2.png\" alt=\"avatar\" data-v-39d73ece></a><div class=\"chat-about\" data-v-39d73ece><h6 class=\"m-b-0\" data-v-39d73ece>Aiden Chavez</h6><small data-v-39d73ece>Last seen: 2 hours ago</small></div></div><div class=\"col-lg-6 hidden-sm text-right\" data-v-39d73ece><a href=\"javascript:void(0);\" class=\"btn btn-outline-secondary\" data-v-39d73ece><i class=\"fa fa-camera\" data-v-39d73ece></i></a><a href=\"javascript:void(0);\" class=\"btn btn-outline-primary\" data-v-39d73ece><i class=\"fa fa-image\" data-v-39d73ece></i></a><a href=\"javascript:void(0);\" class=\"btn btn-outline-info\" data-v-39d73ece><i class=\"fa fa-cogs\" data-v-39d73ece></i></a><a href=\"javascript:void(0);\" class=\"btn btn-outline-warning\" data-v-39d73ece><i class=\"fa fa-question\" data-v-39d73ece></i></a></div></div></div>", 1);
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "img_cont"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/images/photo1.png",
+    "class": "rounded-circle user_img"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "online_icon"
+  })], -1
+  /* HOISTED */
+  );
+});
 
-var _hoisted_7 = {
-  "class": "chat-history"
-};
-var _hoisted_8 = {
-  "class": "m-b-0"
-};
 var _hoisted_9 = {
-  "class": "message-data"
-};
-var _hoisted_10 = {
-  key: 0,
-  src: "https://bootdey.com/img/Content/avatar/avatar7.png",
-  alt: "avatar"
-};
-var _hoisted_11 = {
-  "class": "chat-message clearfix",
-  id: "sendMessageForm"
-};
-var _hoisted_12 = {
-  "class": "input-group mb-0"
-};
-var _hoisted_13 = {
-  "class": "input-group-prepend"
+  "class": "user_info"
 };
 
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-    "data-feather": "send",
-    "class": "d-lg-none"
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Online", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "card-footer"
   }, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "d-none text-nowrap d-lg-block"
-  }, "Send", -1
+var _hoisted_12 = {
+  "class": "col-md-8 col-xl-6 chat"
+};
+var _hoisted_13 = {
+  "class": "card"
+};
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header msg_head\" data-v-39d73ece><div class=\"d-flex bd-highlight\" data-v-39d73ece><div class=\"img_cont\" data-v-39d73ece><img src=\"/assets/images/photo1.png\" class=\"rounded-circle user_img\" data-v-39d73ece><span class=\"online_icon\" data-v-39d73ece></span></div><div class=\"user_info\" data-v-39d73ece><span data-v-39d73ece>khalid Charif</span><p data-v-39d73ece>1767 Messages</p></div><!--&lt;div class=&quot;video_cam&quot;&gt;\n                                            &lt;span&gt;&lt;i class=&quot;fas fa-video&quot;&gt;&lt;/i&gt;&lt;/span&gt;\n                                            &lt;span&gt;&lt;i class=&quot;fas fa-phone&quot;&gt;&lt;/i&gt;&lt;/span&gt;\n                                        &lt;/div&gt;--></div><span id=\"action_menu_btn\" data-v-39d73ece><i class=\"fas fa-ellipsis-v\" data-v-39d73ece></i></span><div class=\"action_menu\" data-v-39d73ece><ul data-v-39d73ece><li data-v-39d73ece><i class=\"fas fa-user-circle\" data-v-39d73ece></i> View profile</li><li data-v-39d73ece><i class=\"fas fa-users\" data-v-39d73ece></i> Add to close friends</li><li data-v-39d73ece><i class=\"fas fa-plus\" data-v-39d73ece></i> Add to group</li><li data-v-39d73ece><i class=\"fas fa-ban\" data-v-39d73ece></i> Block</li></ul></div></div>", 1);
+
+var _hoisted_15 = {
+  "class": "card-body msg_card_body"
+};
+var _hoisted_16 = {
+  "class": "msg_cotainer_send"
+};
+
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "img_cont_msg"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/images/photo1.png",
+    "class": "rounded-circle user_img_msg"
+  })], -1
   /* HOISTED */
   );
 });
 
-var _hoisted_16 = [_hoisted_14, _hoisted_15];
+var _hoisted_18 = {
+  key: 1,
+  "class": "d-flex justify-content-start mb-4"
+};
+
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "img_cont_msg"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/images/profile-pic.png",
+    "class": "rounded-circle user_img_msg"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_20 = {
+  "class": "msg_cotainer"
+};
+var _hoisted_21 = {
+  "class": "card-footer"
+};
+var _hoisted_22 = {
+  "class": "input-group"
+};
+
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "input-group-append"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "input-group-text attach_btn"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    "class": "fas fa-paperclip"
+  })])], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_24 = {
+  "class": "input-group-append"
+};
+
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    "class": "fas fa-location-arrow"
+  }, null, -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_26 = [_hoisted_25];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.messagesFormat, function (message) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.conversations, function (conversation, key, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-      "class": "clearfix",
-      key: message
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                    <span :class=\"{'message-data-time' : true, 'float-right': conversationProps.first_user_id === message.sender_id }\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                    >{{ message.created_at }}</span>"), $props.senderId != message.sender_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-        'message': true,
-        'other-message': true,
-        'float-right': $props.senderId == message.sender_id
-      })
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 3
-    /* TEXT, CLASS */
-    )]);
+      "class": "active",
+      key: conversation.id
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "d-flex bd-highlight",
+      onClick: function onClick($event) {
+        return $options.chooseConversation(conversation);
+      }
+    }, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(conversation.name), 1
+    /* TEXT */
+    ), _hoisted_10])], 8
+    /* PROPS */
+    , _hoisted_7)]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "btn btn-primary send",
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $options.addMessage();
+  ))])]), _hoisted_11])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.messagesFormat, function (message) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: message
+    }, [$props.senderId == message.sender_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: 0,
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+        'd-flex': true,
+        'justify-content-end': $props.senderId == message.sender_id,
+        'mb-4': true
+      })
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <span class=\"msg_time_send\">9:05 AM, Today</span>")]), _hoisted_17], 2
+    /* CLASS */
+    )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                <span class=\"msg_time\">9:07 AM, Today</span>")])]))]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.message = $event;
     }),
     onKeyup: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
       return $options.addMessage();
-    }, ["enter"]))
-  }, _hoisted_16, 32
-  /* HYDRATE_EVENTS */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "text",
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.message = $event;
+    }, ["enter"])),
+    name: "",
+    "class": "form-control type_msg",
+    placeholder: "Type your message..."
+  }, null, 544
+  /* HYDRATE_EVENTS, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.message]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "input-group-text send_btn",
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $options.addMessage();
     }),
     onKeyup: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
       return $options.addMessage();
-    }, ["enter"])),
-    "class": "form-control message",
-    placeholder: "Type your message"
-  }, null, 544
-  /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.message]])])])])])])]);
+    }, ["enter"]))
+  }, _hoisted_26, 32
+  /* HYDRATE_EVENTS */
+  )])])])])])]);
 }
 
 /***/ }),
@@ -43132,12 +43220,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyD2nYY1fg87Xya0d_eoje_yxlxV_MUyIqM",
-  authDomain: "hospital-656b4.firebaseapp.com",
-  projectId: "hospital-656b4",
-  storageBucket: "hospital-656b4.appspot.com",
-  messagingSenderId: "199337787419",
-  appId: "1:199337787419:web:5255d5fb984c07d086b8be"
+  apiKey: "AIzaSyDg7S5yUFF_rLY5wMY6ImDEPoQACJJxPus",
+  authDomain: "social-media-32208.firebaseapp.com",
+  projectId: "social-media-32208",
+  storageBucket: "social-media-32208.appspot.com",
+  messagingSenderId: "81375969330",
+  appId: "1:81375969330:web:6dbad01e3e2a6120663c2b"
 };
 var app = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebaseConfig);
 var db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_1__.getFirestore)(app);

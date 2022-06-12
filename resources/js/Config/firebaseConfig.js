@@ -2,12 +2,12 @@ import {initializeApp} from 'firebase/app';
 import {onSnapshot,doc,getDoc,query,getFirestore,collection, getDocs, where,setDoc,addDoc,orderBy } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD2nYY1fg87Xya0d_eoje_yxlxV_MUyIqM",
-    authDomain: "hospital-656b4.firebaseapp.com",
-    projectId: "hospital-656b4",
-    storageBucket: "hospital-656b4.appspot.com",
-    messagingSenderId: "199337787419",
-    appId: "1:199337787419:web:5255d5fb984c07d086b8be"
+    apiKey: "AIzaSyDg7S5yUFF_rLY5wMY6ImDEPoQACJJxPus",
+    authDomain: "social-media-32208.firebaseapp.com",
+    projectId: "social-media-32208",
+    storageBucket: "social-media-32208.appspot.com",
+    messagingSenderId: "81375969330",
+    appId: "1:81375969330:web:6dbad01e3e2a6120663c2b"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -17,3 +17,4 @@ const db = getFirestore(app);
 
 
 export{db,onSnapshot,doc,getDoc,query,getFirestore,collection, getDocs, where,setDoc,addDoc,orderBy };
+

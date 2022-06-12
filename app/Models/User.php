@@ -76,7 +76,7 @@ class User extends Authenticatable
 
     public function friends()
     {
-        return $this->belongsToMany(User::class, 'friends', 'friend_id');
+        return $this->belongsToMany(User::class, 'friends', 'friend_id')->withPivot(['serial']);
     }
 
     public function groups()
@@ -88,13 +88,13 @@ class User extends Authenticatable
     // friendship that this user started
     protected function friendsOfThisUser()
     {
-        return $this->belongsToMany(User::class, 'friends', 'friend_id');
+        return $this->belongsToMany(User::class, 'friends', 'friend_id')->withPivot(['serial']);
     }
 
     // friendship that this user was asked for
     protected function thisUserFriendOf()
     {
-        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id');
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')->withPivot(['serial']);
     }
 
     // accessor allowing you call $user->friends

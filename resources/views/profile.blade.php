@@ -22,7 +22,7 @@
                         ajouter
                     </button>
                     @endif
-                    <button type="button"><img src="{{ asset('assets/images/message.png') }}"> message</button>
+                    <a href="{{ route('chat') }}" type="button"><img src="{{ asset('assets/images/message.png') }}"> message</a>
                     <br>
                     <a href=""><img src="{{ asset('assets/images/more.png') }}"></a>
                 </div>
