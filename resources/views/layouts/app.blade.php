@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
     <script src="https://kit.fontawesome.com/ab2d8621ed.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/ab2d8621ed.js" crossorigin="anonymous"></script>
+    @stack('css')
 </head>
 <body>
 @include('layouts.partials.navbar')

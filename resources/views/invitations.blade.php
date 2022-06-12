@@ -1,5 +1,97 @@
 @extends('layouts.app')
 
+@push('css')
+    <style>#fb {
+            width: 500px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            position: relative;
+            height: 175px;
+            display: block;
+
+        }
+
+        #fb p {
+            font-family: sans-serif;
+            margin: 0 0 0 10px;
+            line-height: 30px;
+        }
+
+        #fb-top span {
+            color: #4267B2;
+            float: right;
+            margin-right: 10px;
+        }
+
+        #fb-top {
+            background-color: #efefef;
+            height: 30px;
+            width: 500px;
+            border-radius: 5px 5px 0 0;
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            border: 1px solid gray;
+
+        }
+
+        #fb img {
+            position: absolute;
+            left: 10px;
+            top: 52.5px;
+        }
+
+        #info {
+            position: absolute;
+            left: 120px;
+            top: 75px;
+        }
+
+        #info {
+            color: #4267B2;
+            line-height: 25px;
+            font-size: 18px;
+        }
+
+        #info span {
+            color: #777;
+            font-size: 14px;
+        }
+
+        #button-block {
+            position: absolute;
+            right: 10px;
+            top: 85px;
+        }
+
+        #button-block div {
+            display: inline-block;
+        }
+
+
+        #confirm, #delete {
+            background-color: #4267B2;
+            color: white;
+            padding: 7px;
+            border-radius: 2px;
+            margin-right: 10px;
+            font-family: sans-serif;
+        }
+
+        #delete {
+            color: #222;
+            background-color: #bbb;
+            border: 1px solid #999;
+            padding: 6px;
+            margin-right: 0;
+        }
+
+        #button-block div:hover {
+            opacity: .8;
+            cursor: pointer;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
         <div class="left-side-bar">
@@ -23,56 +115,19 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="write-Post-container">
-                <div class="user-profile">
-                    <img src="{{ auth()->user()->image_url }}">
-                    <div><p> {{ auth()->user()->name }}</p>
-                        <small>public <i class="fas fa-caret-down"></i></small>
-                    </div>
-                </div>
-                <form class="post-input-container" action="{{ route('posts.store')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <textarea rows="3" placeholder="exprimez vous!" name="content">{{ old('content') }}</textarea>
-                    <div class="form-row gallery">
-
-                    </div>
-
-                    <input type="file" name="image" style="display: none"
-                           class="custom-file-input"
-                           id="imgInput" size="2024">
-                    <div class="add-post-links">
-                        <a href=""><img src="{{ asset('assets/images/live-video.png') }}">video</a>
-                        <a href="javascript:void(0)" onclick="clickInput()"><img
-                                src="{{ asset('assets/images/photo.png') }}">photo</a>
-                        <a href=""><img src="{{ asset('assets/images/feeling.png') }}">tag</a>
-                        <button type="submit" class="btn">Publier</button>
-                    </div>
-                </form>
-            </div>
-            @foreach($posts as $post)
-                <div class="post-container">
-
-                    <div class="post-row">
-                        <div class="user-profile">
-                            <img src="{{ asset('assets/images/profile-pic.png') }}">
-                            <div><a href="{{ route('profile.index', $post->user_id) }}"><p> {{ $post->user->name }}</p>
-                                </a>
-                                <span></span>
-                            </div>
+            @foreach($invitations as $invitation)
+                <div id="fb">
+                    @if($loop->first)
+                        <div id="fb-top">
+                            <p><b>invitations</b></p>
                         </div>
-                        <a href=""><i class="fas fa-ellipsis-v"></i> </a>
-                    </div>
-
-                    <p class="post-text"> {{ $post->content }}</p>
-                    <img src="{{ $post->image_url }}" class="post-img">
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div><img src="{{ asset('assets/images/like-blue.png') }}">120</div>
-                            <div><img src="{{ asset('assets/images/comments.png') }}">20</div>
-                            <div><img src="{{ asset('assets/images/share.png') }}">20</div>
-                        </div>
-
+                    @endif
+                    <img src="{{ $invitation->requestingUser->image_url }}" height="100" width="100"
+                         alt="Image of woman">
+                    <p id="info"><b>{{ $invitation->requestingUser->name }}</b></p>
+                    <div id="button-block">
+                        <div id="confirm"><a href="{{ route('invitations.accept', $invitation->id) }}" style="text-decoration:none; color:inherit">Accepter</a></div>
+                        <div id="delete"><a href="{{ route('invitations.reject', $invitation->id) }}" style="text-decoration:none; color:inherit">refuser</a></div>
                     </div>
                 </div>
             @endforeach
@@ -162,6 +217,6 @@
         });
 
 
-
     </script>
+
 @endpush

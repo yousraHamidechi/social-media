@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -53,3 +54,6 @@ Route::post('modules/{id}/tutorials', [ModuleController::class, 'storeTutorial']
 Route::post('modules/{id}/works', [ModuleController::class, 'storeWork'])->middleware('auth')->name('modules.store.work');
 
 Route::get('modules', [ModuleController::class, 'index'])->middleware('auth')->name('modules.index');
+Route::get('invitations', [InvitationController::class, 'index'])->middleware('auth')->name('invitations.index');
+Route::get('invitations/{id}/accept', [InvitationController::class, 'accept'])->middleware('auth')->name('invitations.accept');
+Route::get('invitations/{id}/reject', [InvitationController::class, 'reject'])->middleware('auth')->name('invitations.reject');

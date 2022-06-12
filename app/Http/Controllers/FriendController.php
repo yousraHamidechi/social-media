@@ -11,7 +11,10 @@ class FriendController extends Controller
     public function store($id)
     {
         $user = User::findOrFail($id);
-        $user->friends()->syncWithoutDetaching([auth()->id()]);
+        $user->invitations()->create([
+            'requested_user' => auth()->id()
+        ]);
+//        $user->friends()->syncWithoutDetaching([auth()->id()]);
         return back();
     }
 
