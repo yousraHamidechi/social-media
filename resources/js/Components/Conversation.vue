@@ -44,9 +44,9 @@
                             <img src="/assets/images/photo1.png" class="rounded-circle user_img" />
                             <span class="online_icon"></span>
                         </div>
-                        <div class="user_info">
-                            <span>khalid Charif</span>
-                            <p>1767 Messages</p>
+                        <div class="user_info" v-if="conversation">
+                            <span>{{ conversation.name}}</span>
+<!--                            <p>1767 Messages</p>-->
                         </div>
                         <!--<div class="video_cam">
                                             <span><i class="fas fa-video"></i></span>
@@ -205,7 +205,7 @@ export default {
          },
         chooseConversation(conversation)
         {
-            console.log('test')
+            console.log(conversation)
             this.conversation = conversation
             this.realTimeMessages()
         },

@@ -42963,7 +42963,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log(this.messages);
     },
     chooseConversation: function chooseConversation(conversation) {
-      console.log('test');
+      console.log(conversation);
       this.conversation = conversation;
       this.realTimeMessages();
     },
@@ -43058,17 +43058,41 @@ var _hoisted_12 = {
 var _hoisted_13 = {
   "class": "card"
 };
-
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header msg_head\" data-v-39d73ece><div class=\"d-flex bd-highlight\" data-v-39d73ece><div class=\"img_cont\" data-v-39d73ece><img src=\"/assets/images/photo1.png\" class=\"rounded-circle user_img\" data-v-39d73ece><span class=\"online_icon\" data-v-39d73ece></span></div><div class=\"user_info\" data-v-39d73ece><span data-v-39d73ece>khalid Charif</span><p data-v-39d73ece>1767 Messages</p></div><!--&lt;div class=&quot;video_cam&quot;&gt;\n                                            &lt;span&gt;&lt;i class=&quot;fas fa-video&quot;&gt;&lt;/i&gt;&lt;/span&gt;\n                                            &lt;span&gt;&lt;i class=&quot;fas fa-phone&quot;&gt;&lt;/i&gt;&lt;/span&gt;\n                                        &lt;/div&gt;--></div><span id=\"action_menu_btn\" data-v-39d73ece><i class=\"fas fa-ellipsis-v\" data-v-39d73ece></i></span><div class=\"action_menu\" data-v-39d73ece><ul data-v-39d73ece><li data-v-39d73ece><i class=\"fas fa-user-circle\" data-v-39d73ece></i> View profile</li><li data-v-39d73ece><i class=\"fas fa-users\" data-v-39d73ece></i> Add to close friends</li><li data-v-39d73ece><i class=\"fas fa-plus\" data-v-39d73ece></i> Add to group</li><li data-v-39d73ece><i class=\"fas fa-ban\" data-v-39d73ece></i> Block</li></ul></div></div>", 1);
-
+var _hoisted_14 = {
+  "class": "card-header msg_head"
+};
 var _hoisted_15 = {
+  "class": "d-flex bd-highlight"
+};
+
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "img_cont"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/images/photo1.png",
+    "class": "rounded-circle user_img"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "online_icon"
+  })], -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_17 = {
+  key: 0,
+  "class": "user_info"
+};
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span id=\"action_menu_btn\" data-v-39d73ece><i class=\"fas fa-ellipsis-v\" data-v-39d73ece></i></span><div class=\"action_menu\" data-v-39d73ece><ul data-v-39d73ece><li data-v-39d73ece><i class=\"fas fa-user-circle\" data-v-39d73ece></i> View profile</li><li data-v-39d73ece><i class=\"fas fa-users\" data-v-39d73ece></i> Add to close friends</li><li data-v-39d73ece><i class=\"fas fa-plus\" data-v-39d73ece></i> Add to group</li><li data-v-39d73ece><i class=\"fas fa-ban\" data-v-39d73ece></i> Block</li></ul></div>", 2);
+
+var _hoisted_20 = {
   "class": "card-body msg_card_body"
 };
-var _hoisted_16 = {
+var _hoisted_21 = {
   "class": "msg_cotainer_send"
 };
 
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "img_cont_msg"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -43079,12 +43103,12 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_18 = {
+var _hoisted_23 = {
   key: 1,
   "class": "d-flex justify-content-start mb-4"
 };
 
-var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "img_cont_msg"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -43095,17 +43119,17 @@ var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_20 = {
+var _hoisted_25 = {
   "class": "msg_cotainer"
 };
-var _hoisted_21 = {
+var _hoisted_26 = {
   "class": "card-footer"
 };
-var _hoisted_22 = {
+var _hoisted_27 = {
   "class": "input-group"
 };
 
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_28 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "input-group-append"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -43117,11 +43141,11 @@ var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_24 = {
+var _hoisted_29 = {
   "class": "input-group-append"
 };
 
-var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fas fa-location-arrow"
   }, null, -1
@@ -43129,7 +43153,7 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_26 = [_hoisted_25];
+var _hoisted_31 = [_hoisted_30];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.conversations, function (conversation, key, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
@@ -43147,7 +43171,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_7)]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), _hoisted_11])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.messagesFormat, function (message) {
+  ))])]), _hoisted_11])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, $data.conversation ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.conversation.name), 1
+  /* TEXT */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <p>1767 Messages</p>")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("<div class=\"video_cam\">\n                                            <span><i class=\"fas fa-video\"></i></span>\n                                            <span><i class=\"fas fa-phone\"></i></span>\n                                        </div>")]), _hoisted_18]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.messagesFormat, function (message) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: message
     }, [$props.senderId == message.sender_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -43157,16 +43183,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         'justify-content-end': $props.senderId == message.sender_id,
         'mb-4': true
       })
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <span class=\"msg_time_send\">9:05 AM, Today</span>")]), _hoisted_17], 2
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <span class=\"msg_time_send\">9:05 AM, Today</span>")]), _hoisted_22], 2
     /* CLASS */
-    )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
+    )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(message.content), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                <span class=\"msg_time\">9:07 AM, Today</span>")])]))]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.message = $event;
     }),
@@ -43178,7 +43204,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "Type your message..."
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.message]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.message]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "input-group-text send_btn",
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.addMessage();
@@ -43186,7 +43212,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onKeyup: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)(function ($event) {
       return $options.addMessage();
     }, ["enter"]))
-  }, _hoisted_26, 32
+  }, _hoisted_31, 32
   /* HYDRATE_EVENTS */
   )])])])])])]);
 }
